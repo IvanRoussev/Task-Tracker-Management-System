@@ -60,3 +60,24 @@ func (t *Task) CreateTask(db *mongo.Database) *Task {
 
 	return t
 }
+
+func GetTaskById(db *mongo.Database, id string) *Task {
+	collection := db.Collection("tasks")
+
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		fmt.Printf("Invalid ObjectID: %v", err)
+		return nil
+	}
+
+	filter := bson.M{"_id": objectID}
+	findOptions := options.FindOne()
+
+	var result *Task
+	err = collection.FindOne(context.TODO(), filter, findOptions).Decode(&result)
+
+	if err != nil {
+		fmt.Printf("Could not find that Task by ID: %v", err)
+	}
+	return result
+}
