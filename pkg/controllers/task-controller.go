@@ -64,3 +64,48 @@ func GetTaskById(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func DeleteTaskById(w http.ResponseWriter, r *http.Request) {
+	args := mux.Vars(r)
+	taskId := args["taskId"]
+
+	task := models.DeleteTaskById(db, taskId)
+
+	res, _ := json.Marshal(task)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+
+}
+
+type UpdateTaskRequest struct {
+	UpdateCompleted bool `json:"Completed"`
+}
+
+func EditTaskCompletedById(w http.ResponseWriter, r *http.Request) {
+	args := mux.Vars(r)
+	taskId := args["taskId"]
+
+	var updateRequest UpdateTaskRequest
+	err := json.NewDecoder(r.Body).Decode(&updateRequest)
+
+	if err != nil {
+		fmt.Printf("Could not get new Description from request: %v", err)
+	}
+
+	completed := updateRequest.UpdateCompleted
+
+	var task *models.Task
+
+	task = task.EditTaskCompletionById(db, taskId, completed)
+
+	res, _ := json.Marshal(task)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(res)
+
+	if err != nil {
+		fmt.Printf("Could not Send back new Updated Task: %v", err)
+	}
+}

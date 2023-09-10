@@ -49,7 +49,7 @@ func GetAllTasks(db *mongo.Database) ([]Task, error) {
 
 func (t *Task) CreateTask(db *mongo.Database) *Task {
 
-	collection := db.Collection("tasks")
+	collection := TaskCollection(db)
 
 	_, err := collection.InsertOne(context.TODO(), t)
 
@@ -62,7 +62,7 @@ func (t *Task) CreateTask(db *mongo.Database) *Task {
 }
 
 func GetTaskById(db *mongo.Database, id string) *Task {
-	collection := db.Collection("tasks")
+	collection := TaskCollection(db)
 
 	objectID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
@@ -80,4 +80,52 @@ func GetTaskById(db *mongo.Database, id string) *Task {
 		fmt.Printf("Could not find that Task by ID: %v", err)
 	}
 	return result
+}
+
+func DeleteTaskById(db *mongo.Database, id string) *Task {
+
+	collection := TaskCollection(db)
+
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		fmt.Printf("Could not convert int string to primitive.Object: %v", err)
+	}
+
+	filter := bson.M{"_id": objectId}
+	findOptions := options.FindOneAndDelete()
+
+	var resultTask *Task
+	err = collection.FindOneAndDelete(context.TODO(), filter, findOptions).Decode(&resultTask)
+
+	if err != nil {
+		fmt.Printf("Could not delete Task from database: %v", err)
+	}
+
+	return resultTask
+
+}
+
+func (t *Task) EditTaskCompletionById(db *mongo.Database, id string, updatedCompletion bool) *Task {
+
+	collection := TaskCollection(db)
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		fmt.Printf("Could not Convert id type string to primitive.Object: %v", err)
+	}
+
+	filter := bson.M{"_id": objectId}
+	update := bson.M{"$set": bson.M{"Completed": updatedCompletion}}
+	updateOptions := options.FindOneAndUpdate().SetUpsert(false)
+
+	var resultTask *Task
+	err = collection.FindOneAndUpdate(context.TODO(), filter, update, updateOptions).Decode(&resultTask)
+
+	if err != nil {
+		fmt.Printf("Could not Update Task by Id provided: %v", err)
+	}
+
+	return resultTask
+
 }
