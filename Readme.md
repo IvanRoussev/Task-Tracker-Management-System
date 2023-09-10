@@ -1,6 +1,16 @@
 # Task Manager app
 
-## *HTTP Routes*
+## Technologies Used
+
+- Backend: Go
+- Database: MongoDB
+
+## How Database Works
+
+- The Database is locally for now connected using to Go backend using this connection string
+- `mongodb://localhost:27017`
+
+## HTTP Routes
 
 ### GET
 
