@@ -47,3 +47,9 @@
   * This route Will edit the completion of the task 
   * send a request of the id in the header and a json object completion update to true or false
   * ex. req body `{ "completed" : true }`
+
+
+* EditDescriptionById(id *string*)
+  * This route will edit he Description of the task
+  * send a request of the id in the header and a json object of new description in the request body for it to work
+  * ex req body `{ "description" : "new description" }`
