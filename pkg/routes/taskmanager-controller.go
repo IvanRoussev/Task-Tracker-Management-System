@@ -11,4 +11,5 @@ var RegisterTaskManagerRoutes = func(router *mux.Router) {
 	router.HandleFunc("/task/{taskId}", controllers.GetTaskById).Methods("GET")
 	router.HandleFunc("/task/{taskId}", controllers.DeleteTaskById).Methods("DELETE")
 	router.HandleFunc("/task/{taskId}", controllers.EditTaskCompletedById).Methods("PUT")
+	router.HandleFunc("/task/{taskId}", controllers.EditTaskDescriptionByID).Methods("PUT")
 }

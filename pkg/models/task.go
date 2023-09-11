@@ -129,3 +129,26 @@ func (t *Task) EditTaskCompletionById(db *mongo.Database, id string, updatedComp
 	return resultTask
 
 }
+
+func (t *Task) EditDescriptionById(db *mongo.Database, id string, description string) *Task {
+
+	collection := TaskCollection(db)
+	objectId, err := primitive.ObjectIDFromHex(id)
+
+	if err != nil {
+		fmt.Printf("Could not Convert id type string to primitive.Object: %v", err)
+	}
+
+	filter := bson.M{"_id": objectId}
+	update := bson.M{"$set": bson.M{"Description": description}}
+	updateOptions := options.FindOneAndUpdate().SetUpsert(false)
+
+	var resultTask *Task
+	err = collection.FindOneAndUpdate(context.TODO(), filter, update, updateOptions).Decode(&resultTask)
+
+	if err != nil {
+		fmt.Printf("Could not Update Task by Id provided: %v", err)
+	}
+
+	return resultTask
+}

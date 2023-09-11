@@ -82,6 +82,10 @@ type UpdateTaskRequest struct {
 	UpdateCompleted bool `json:"Completed"`
 }
 
+type UpdateDescription struct {
+	UpdateDescription string `json:"Description"`
+}
+
 func EditTaskCompletedById(w http.ResponseWriter, r *http.Request) {
 	args := mux.Vars(r)
 	taskId := args["taskId"]
@@ -107,5 +111,33 @@ func EditTaskCompletedById(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Printf("Could not Send back new Updated Task: %v", err)
+	}
+}
+
+func EditTaskDescriptionByID(w http.ResponseWriter, r *http.Request) {
+	args := mux.Vars(r)
+	taskId := args["taskId"]
+
+	var updatedDescription UpdateDescription
+	err := json.NewDecoder(r.Body).Decode(&updatedDescription)
+
+	if err != nil {
+		fmt.Printf("Could not get new Description from request: %v", err)
+	}
+
+	newDescription := updatedDescription.UpdateDescription
+
+	var task *models.Task
+
+	task = task.EditDescriptionById(db, taskId, newDescription)
+
+	res, _ := json.Marshal(task)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(res)
+
+	if err != nil {
+		fmt.Printf("Could not write to server: %v", err)
 	}
 }
