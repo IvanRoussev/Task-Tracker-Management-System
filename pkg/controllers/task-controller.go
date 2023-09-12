@@ -24,6 +24,7 @@ func GetTask(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(newTasks)
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(res)
 	if err != nil {
@@ -39,6 +40,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := json.Marshal(b)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	_, err := w.Write(res)
 
@@ -56,6 +58,7 @@ func GetTaskById(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := json.Marshal(task)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	_, err := w.Write(res)
 
@@ -73,6 +76,7 @@ func DeleteTaskById(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := json.Marshal(task)
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 
@@ -106,6 +110,7 @@ func EditTaskCompletedById(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(task)
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(res)
 
@@ -134,6 +139,7 @@ func EditTaskDescriptionByID(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(task)
 
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 	w.WriteHeader(http.StatusOK)
 	_, err = w.Write(res)
 
