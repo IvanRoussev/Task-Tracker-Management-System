@@ -1,0 +1,41 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Task-Manager
+host: localhost:9010
+basePath: /api
+consumes: [application/json]
+produces: [application/json]
+paths:
+  /task:
+    get:
+      tags: [task]
+      summary: 'Get Tasks from database'
+      description: 'It returns Task objects of task that are found in the mongodb database'
+      operationId: Task
+      responses:
+        200:
+          description: 'List of Tasks'
+          schema:
+            type: object
+            properties:
+              ID:
+                type: string
+                example: "64fe0c46464203251e7ad828"
+              Description:
+                type: string
+                example: "Book a massage for Tuesday"
+              DueDate:
+                type: string
+                example: "By Monday"
+            required:
+              - Description
+              - DueDate
+        400:
+          description: Bad Request
+        404:
+          description: Task Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
