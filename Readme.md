@@ -53,3 +53,8 @@
   * This route will edit he Description of the task
   * send a request of the id in the header and a json object of new description in the request body for it to work
   * ex req body `{ "description" : "new description" }`
+
+
+### Implementing Swagger
+
+* Next I'm trying to implmement swagger
