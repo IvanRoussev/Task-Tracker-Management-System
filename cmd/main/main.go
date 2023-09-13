@@ -13,7 +13,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.PathPrefix("/swagger").Handler(httpSwagger.Handler(
-		httpSwagger.URL("C:/Users/ivanr/Documents/Personal/Projects/Go/taskManager/cmd/main/swagger/swagger.yaml")))
+		httpSwagger.URL("C:/Users/ivanr/Documents/Personal/Projects/Go/taskManager/api/swagger/swagger.yaml")))
 
 	routes.RegisterTaskManagerRoutes(r)
 	http.Handle("/", r)
