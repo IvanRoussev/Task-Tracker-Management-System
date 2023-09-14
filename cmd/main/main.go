@@ -14,7 +14,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.PathPrefix("/").Handler(httpSwagger.Handler(
-		httpSwagger.URL("localhost:9010/docs/swagger.yaml")))
+		httpSwagger.URL("http://localhost:9010/docs/swagger.yaml")))
 
 	cors :=
 		handlers.CORS(
