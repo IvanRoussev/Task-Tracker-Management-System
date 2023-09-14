@@ -25,7 +25,7 @@ func main() {
 	r.Use(cors)
 
 	r.Path("/swagger.yaml").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "swagger.yaml")
+		http.ServeFile(w, r, "../../api/swagger.yaml")
 	}))
 
 	r.PathPrefix("/swagger").Handler(httpSwagger.Handler(
