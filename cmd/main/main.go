@@ -4,17 +4,14 @@ import (
 	"fmt"
 	"github.com/IvanRoussev/taskManager/pkg/routes"
 	"github.com/gorilla/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"net/http"
 
 	"github.com/gorilla/mux"
-	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func main() {
 	r := mux.NewRouter()
-
-	r.PathPrefix("/").Handler(httpSwagger.Handler(
-		httpSwagger.URL("http://localhost:9010/docs/swagger.yaml")))
 
 	cors :=
 		handlers.CORS(
@@ -27,10 +24,15 @@ func main() {
 
 	r.Use(cors)
 
+	r.Path("/swagger.yaml").Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "swagger.yaml")
+	}))
+
+	r.PathPrefix("/swagger").Handler(httpSwagger.Handler(
+		httpSwagger.URL("/swagger.yaml")))
+
 	routes.RegisterTaskManagerRoutes(r)
 	http.Handle("/", r)
-	fmt.Printf("Server running on http://localhost:9010 \n")
-
 	err := http.ListenAndServe("localhost:9010", r)
 
 	if err != nil {
