@@ -39,11 +39,38 @@ paths:
           schema:
             type: string
           description: Server Error
+  /task/{taskid}:
+    get:
+      tags: [Get Task By ID]
+      summary: "Returns a Task by ID."
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: string
+            minimum: 1
+
+      responses:
+        200:
+          description: Successfully found Task with id {taskId} in Database
+        400:
+          description: Bad request
+        404:
+          description: Task Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
     post:
       tags: [Create]
       summary: 'Create Task'
       description: 'Creates a tasks and inserts into mongodb Database'
       operationId: Task
+      parameters:
+        - name: Description
+          in: 
       responses:
         200:
           description: 'Successfully created Task'
