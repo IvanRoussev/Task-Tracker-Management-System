@@ -15,7 +15,7 @@ paths:
       operationId: Task
       responses:
         200:
-          description: 'Sussefully Found Tasks in Databases'
+          description: 'Successfully Found Tasks in Databases'
           schema:
             type: object
             properties:
@@ -69,8 +69,11 @@ paths:
       description: 'Creates a tasks and inserts into mongodb Database'
       operationId: Task
       parameters:
-        - name: Description
-          in: 
+        - name: Task
+          in: body
+          type: string
+          required: true
+          description: "json of task"
       responses:
         200:
           description: 'Successfully created Task'
