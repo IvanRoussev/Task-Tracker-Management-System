@@ -39,7 +39,7 @@ paths:
           schema:
             type: string
           description: Server Error
-  /task/{taskid}:
+  /task/{taskId}:
     get:
       tags: [Get Task By ID]
       summary: "Returns a Task by ID."
@@ -51,9 +51,23 @@ paths:
             type: string
             format: string
             minimum: 1
-
       responses:
         200:
+          schema:
+            type: object
+            properties:
+              ID:
+                type: string
+                example: 64fe0c46464203251e7ad828
+              Description:
+                type: string
+                example: "Book flights for tuesday"
+              DueDate:
+                type: string
+                example: "By Monday"
+            required:
+              - Description
+              - DueDate
           description: Successfully found Task with id {taskId} in Database
         400:
           description: Bad request
@@ -116,11 +130,53 @@ paths:
               DueDate:
                   type: string
                   example: "By sunday"
+              Completed:
+                type: boolean
+                example: false
             required:
               - Description
               - DueDate
+              - Completed
         400:
           description: Bad Request
         404:
           description: Task Not Found
-
+    delete:
+      tags: [Delete]
+      summary: 'Delete Task'
+      description: 'Delete any task by using task id'
+      operationId: Task
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        200:
+          description: 'Succesfully deleted Task {taskId}'
+          schema:
+            type: object
+            properties:
+              ID:
+                type: string
+                example: "64fe0c46464203251e7ad828"
+              Description:
+                type: string
+                example: 'Book a message for tuesday'
+              DueDate:
+                type: string
+                example: "By sunday"
+              Completed:
+                  type: boolean
+                  example: false
+            required:
+              - Description
+              - DueDate
+              - Completed
+        400:
+          description: Bad Request
+        404:
+          description: Task Not Found
