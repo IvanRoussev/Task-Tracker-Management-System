@@ -39,6 +39,33 @@ paths:
           schema:
             type: string
           description: Server Error
+    post:
+      tags: [ Create ]
+      summary: Create a new task
+      description: Create a new task with the provided data
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              Description:
+                type: string
+              DueDate:
+                type: string
+              Completed:
+                type: boolean
+            required:
+              - Description
+              - DueDate
+      responses:
+        '201':
+          description: Task created successfully
+        '400':
+          description: Bad request - Invalid input
+        '500':
+          description: Internal server error
   /task/{taskId}:
     get:
       tags: [Get Task By ID]
@@ -77,39 +104,6 @@ paths:
           schema:
             type: string
           description: Server Error
-    post:
-      tags: [Create]
-      summary: 'Create Task'
-      description: 'Creates a tasks and inserts into mongodb Database'
-      operationId: Task
-      parameters:
-        - name: Task
-          in: body
-          type: string
-          required: true
-          description: "json of task"
-      responses:
-        200:
-          description: 'Successfully created Task'
-          schema:
-            type: object
-            properties:
-              ID:
-                type: string
-                example: "64fe0c46464203251e7ad828"
-              Description:
-                type: string
-                example: 'Book a message for tuesday'
-              DueDate:
-                type: string
-                example: "By sunday"
-            required:
-              - Description
-              - DueDate
-        400:
-          description: Bad Request
-        404:
-          description: Task Not Found
     put:
       tags: [Edit]
       summary: 'Edit Task'

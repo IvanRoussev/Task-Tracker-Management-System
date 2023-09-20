@@ -7,7 +7,7 @@ import (
 
 var RegisterTaskManagerRoutes = func(router *mux.Router) {
 	router.HandleFunc("/api/task", controllers.GetTask).Methods("GET")
-	router.HandleFunc("/api/task/", controllers.CreateTask).Methods("POST")
+	router.HandleFunc("/api/task", controllers.CreateTask).Methods("POST")
 	router.HandleFunc("/api/task/{taskId}", controllers.GetTaskById).Methods("GET")
 	router.HandleFunc("/api/task/{taskId}", controllers.DeleteTaskById).Methods("DELETE")
 	router.HandleFunc("/api/task/{taskId}", controllers.EditTaskCompletedById).Methods("PUT")
