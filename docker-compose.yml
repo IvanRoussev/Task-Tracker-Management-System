@@ -7,9 +7,5 @@ services:
       - 27017:27017
     volumes:
       - taskDB:/data/db
-  task-manager:
-    image: task-manager:latest
-    ports:
-      - 9010:9010
 volumes:
   taskDB:
