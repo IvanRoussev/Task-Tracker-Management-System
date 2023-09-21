@@ -22,6 +22,9 @@ paths:
               ID:
                 type: string
                 example: "64fe0c46464203251e7ad828"
+              Title:
+                type: string
+                example: "My Title"
               Description:
                 type: string
                 example: "Book a massage for Tuesday"
@@ -86,6 +89,9 @@ paths:
               ID:
                 type: string
                 example: 64fe0c46464203251e7ad828
+              Title:
+                type: string
+                example: "My Title"
               Description:
                 type: string
                 example: "Book flights for tuesday"
@@ -136,6 +142,9 @@ paths:
               ID:
                 type: string
                 example: "64fe0c46464203251e7ad828"
+              Title:
+                type: string
+                example: "My Title"
               Description:
                 type: string
                 example: 'Book a message for tuesday'
@@ -175,6 +184,9 @@ paths:
               ID:
                 type: string
                 example: "64fe0c46464203251e7ad828"
+              Title:
+                type: string
+                example: "My Title"
               Description:
                 type: string
                 example: 'Book a message for tuesday'

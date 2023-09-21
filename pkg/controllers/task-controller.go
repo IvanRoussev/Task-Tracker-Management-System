@@ -82,6 +82,19 @@ func DeleteTaskById(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func DeleteTaskByTitle(w http.ResponseWriter, r *http.Request) {
+	args := mux.Vars(r)
+	title := args["taskTitle"]
+
+	task := models.DeleteTaskByTitle(db, title)
+
+	res, _ := json.Marshal(task)
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
+}
+
 type UpdateTaskRequest struct {
 	UpdateCompleted bool `json:"Completed"`
 }
