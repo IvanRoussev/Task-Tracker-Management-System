@@ -11,6 +11,7 @@ import (
 
 type Task struct {
 	ID          primitive.ObjectID `bson:"_id,omitempty"`
+	Title       string             `bson:"title"`
 	Description string             `bson:"description"`
 	DueDate     string             `bson:"due_date"`
 	Completed   bool               `bson:"completed"`

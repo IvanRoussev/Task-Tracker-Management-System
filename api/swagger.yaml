@@ -39,6 +39,33 @@ paths:
           schema:
             type: string
           description: Server Error
+    post:
+      tags: [ Create ]
+      summary: Create a new task
+      description: Create a new task with the provided data
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              Description:
+                type: string
+              DueDate:
+                type: string
+              Completed:
+                type: boolean
+            required:
+              - Description
+              - DueDate
+      responses:
+        '201':
+          description: Task created successfully
+        '400':
+          description: Bad request - Invalid input
+        '500':
+          description: Internal server error
   /task/{taskId}:
     get:
       tags: [Get]
@@ -77,33 +104,6 @@ paths:
           schema:
             type: string
           description: Server Error
-    post:
-      tags: [ Create ]
-      summary: Create a new task
-      description: Create a new task with the provided data
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              Description:
-                type: string
-              DueDate:
-                type: string
-              Completed:
-                type: boolean
-            required:
-              - Description
-              - DueDate
-      responses:
-        '201':
-          description: Task created successfully
-        '400':
-          description: Bad request - Invalid input
-        '500':
-          description: Internal server error
     put:
       tags: [Edit]
       summary: 'Edit Task'
@@ -140,8 +140,8 @@ paths:
                 type: string
                 example: 'Book a message for tuesday'
               DueDate:
-                  type: string
-                  example: "By sunday"
+                type: string
+                example: "By sunday"
               Completed:
                 type: boolean
                 example: false
