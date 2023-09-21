@@ -154,18 +154,22 @@ func (t *Task) EditDescriptionById(db *mongo.Database, id string, description st
 	return resultTask
 }
 
-func DeleteTaskByTitle(db *mongo.Database, title string) *Task {
+func DeleteTaskByTitle(db *mongo.Database, title string) (*Task, error) {
 	collection := TaskCollection(db)
 
 	filter := bson.M{"Title": title}
-	findOptions := options.FindOneAndDelete()
 
-	var resultTask *Task
-	err := collection.FindOneAndDelete(context.TODO(), filter, findOptions).Decode(&resultTask)
+	result, err := collection.DeleteOne(context.TODO(), filter)
 
 	if err != nil {
 		fmt.Printf("Could not delete Task from database: %v", err)
+		return nil, err
 	}
 
-	return resultTask
+	if result.DeletedCount == 0 {
+		fmt.Printf("Could not find Task with such Title %v \n", title)
+		return nil, err
+	}
+
+	return nil, nil
 }

@@ -86,7 +86,16 @@ func DeleteTaskByTitle(w http.ResponseWriter, r *http.Request) {
 	args := mux.Vars(r)
 	title := args["taskTitle"]
 
-	task := models.DeleteTaskByTitle(db, title)
+	task, err := models.DeleteTaskByTitle(db, title)
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		w.WriteHeader(http.StatusNotFound)
+		response := []byte(`{"message": "Task not found or could not be deleted"}`)
+		w.Write(response)
+		return
+	}
 
 	res, _ := json.Marshal(task)
 	w.Header().Set("Content-Type", "application/json")

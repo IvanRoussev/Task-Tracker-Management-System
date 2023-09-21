@@ -53,6 +53,8 @@ paths:
           schema:
             type: object
             properties:
+              Title:
+                type: string
               Description:
                 type: string
               DueDate:
@@ -166,7 +168,7 @@ paths:
       tags: [Delete]
       summary: 'Delete Task'
       description: 'Delete any task by using task id'
-      operationId: Task
+      operationId: 'DeleteTask By ID'
       parameters:
         - name: taskId
           in: path
@@ -196,6 +198,49 @@ paths:
               Completed:
                   type: boolean
                   example: false
+            required:
+              - Description
+              - DueDate
+              - Completed
+        400:
+          description: Bad Request
+        404:
+          description: Task Not Found
+  /task/{taskTitle}:
+    delete:
+      tags: [Delete]
+      summary: 'Delete Task'
+      description: 'Delete any task by using task id'
+      operationId: 'DeleteTaskByTitle By Title'
+      parameters:
+        - name: taskTitle
+          in: path
+          required: true
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        200:
+          description: 'Succesfully deleted Task {taskId}'
+          schema:
+            type: object
+            properties:
+              ID:
+                type: string
+                example: "64fe0c46464203251e7ad828"
+              Title:
+                type: string
+                example: "My Title"
+              Description:
+                type: string
+                example: 'Book a message for tuesday'
+              DueDate:
+                type: string
+                example: "By sunday"
+              Completed:
+                type: boolean
+                example: false
             required:
               - Description
               - DueDate
