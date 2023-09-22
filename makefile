@@ -1,3 +1,4 @@
 
 
-make Build:
+build:
+	docker-compose up
