@@ -170,6 +170,5 @@ func DeleteTaskByTitle(db *mongo.Database, title string) (*Task, error) {
 		fmt.Printf("Could not find Task with such Title %v \n", title)
 		return nil, err
 	}
-
 	return nil, nil
 }

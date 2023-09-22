@@ -33,7 +33,7 @@ func main() {
 
 	routes.RegisterTaskManagerRoutes(r)
 	http.Handle("/", r)
-	err := http.ListenAndServe("localhost:9010", r)
+	err := http.ListenAndServe("localhost:8080", r)
 
 	if err != nil {
 		fmt.Printf("Could start Server: %v", err)
